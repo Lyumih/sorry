@@ -1,5 +1,9 @@
 .app-layout {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 .app-view-dock {
@@ -30,12 +34,18 @@
 }
 
 .app-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
   padding: 24px;
   background: #f5f5f5;
+  overflow-x: hidden;
 }
 
 .app-inner {
-  max-width: 1200px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(1200px, 100%);
   margin: 0 auto;
 }
 
@@ -43,14 +53,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .journal-screen {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(1200px, 100%);
   min-height: calc(100vh - 48px);
-  max-width: 1200px;
+  min-height: calc(100dvh - 48px);
   margin: 0 auto;
 }
 
@@ -104,4 +120,21 @@
   margin: 14px auto 0;
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, rgba(57, 73, 171, 0.55), transparent);
+}
+
+/* Строка label + поле: по центру для однострочных контролов (antd по умолчанию тянет label на фиксированную высоту) */
+.apology-form.ant-form-horizontal .ant-form-item-row {
+  align-items: center;
+}
+
+/* Textarea выше строки ввода — подпись по верху, на одной линии с полем */
+.apology-form.ant-form-horizontal .ant-form-item:has(textarea) .ant-form-item-row {
+  align-items: flex-start;
+}
+
+.apology-form.ant-form-horizontal .ant-form-item:has(textarea) .ant-form-item-label > label {
+  height: auto;
+  min-height: var(--ant-control-height, 32px);
+  align-items: flex-start;
+  padding-top: 5px;
 }

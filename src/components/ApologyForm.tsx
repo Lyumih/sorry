@@ -100,7 +100,16 @@ export function ApologyForm({
     <Form.Item
       label="Когда произошло"
       name="createdAt"
-      rules={[{ required: true, message: "Укажите дату и время" }]}
+      required={false}
+      rules={[
+        {
+          validator: async (_, value) => {
+            if (!value) {
+              throw new Error("Укажите дату и время");
+            }
+          },
+        },
+      ]}
     >
       <DatePicker showTime format="DD.MM.YYYY HH:mm" style={{ width: "100%" }} />
     </Form.Item>
@@ -138,7 +147,11 @@ export function ApologyForm({
   return (
     <Form<FormValues>
       form={form}
-      layout="vertical"
+      layout="horizontal"
+      labelCol={{ flex: "0 0 104px" }}
+      wrapperCol={{ flex: "1 1 auto" }}
+      labelAlign="left"
+      labelWrap
       onFinish={handleFinish}
       className={variant === "minimal" ? "apology-form apology-form-minimal" : "apology-form"}
       initialValues={{
@@ -159,8 +172,11 @@ export function ApologyForm({
         </>
       )}
 
-      <Form.Item>
-        <Space orientation={variant === "minimal" ? "vertical" : "horizontal"} style={{ width: variant === "minimal" ? "100%" : undefined }}>
+      <Form.Item label=" " colon={false}>
+        <Space
+          orientation={variant === "minimal" ? "vertical" : "horizontal"}
+          style={{ width: variant === "minimal" ? "100%" : undefined }}
+        >
           <Button type="primary" htmlType="submit" block={variant === "minimal"}>
             {submitLabel}
           </Button>

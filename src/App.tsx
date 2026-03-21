@@ -13,7 +13,7 @@ import {
   Segmented,
   Spin,
 } from "antd";
-import ruRU from "antd/locale/ru_RU";
+import { appRuLocale } from "./locale/appRuLocale.ts";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { ApologyForm } from "./components/ApologyForm.tsx";
 import { EntryList } from "./components/EntryList.tsx";
@@ -249,7 +249,7 @@ function AppContent() {
 
 function App() {
   return (
-    <ConfigProvider locale={ruRU}>
+    <ConfigProvider locale={appRuLocale}>
       <AntApp>
         <AppContent />
       </AntApp>
