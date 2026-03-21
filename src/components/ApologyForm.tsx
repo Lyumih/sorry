@@ -129,7 +129,7 @@ export function ApologyForm({
 
   const metaFields = (
     <Form.Item
-      label="Когда произошло"
+      label="Дата"
       name="createdAt"
       required={false}
       rules={[
@@ -160,9 +160,7 @@ export function ApologyForm({
         <Form.Item name="toWhom" noStyle>
           <Input
             placeholder={
-              direction === "said_to_me"
-                ? "Например: коллега, партнёр"
-                : "Например: коллеге, партнёру"
+              direction === "said_to_me" ? "Кто? Например, коллега" : "Кому? Например, коллеге"
             }
             aria-label={direction === "said_to_me" ? "Кто сказал" : "Кому"}
             allowClear
