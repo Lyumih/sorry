@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "project": "sorry",
+  "description": "Статусы задач для итеративной реализации MVP по PRD.md. Агент обновляет поле status и при необходимости notes после каждой итерации.",
+  "statusValues": ["pending", "in_progress", "done", "blocked"],
+  "tasks": [
+    {
+      "id": "T1",
+      "order": 1,
+      "title": "Типы ApologyEntry и слой IndexedDB",
+      "description": "TypeScript-типы по PRD; открытие БД, store записей, add/update/delete/getAll с id UUID и createdAt ISO8601.",
+      "prdRefs": ["8", "3"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T2",
+      "order": 2,
+      "title": "Zustand store и синхронизация с IndexedDB",
+      "description": "Состояние списка записей, гидратация при старте, сохранение после мутаций.",
+      "prdRefs": ["11"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T3",
+      "order": 3,
+      "title": "Каркас приложения и русская локаль UI",
+      "description": "Layout главного экрана, Ant Design ConfigProvider, русские подписи интерфейса.",
+      "prdRefs": ["9"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T4",
+      "order": 4,
+      "title": "Форма записи: создание и редактирование",
+      "description": "Поля: дата/время, phraseType (prosti|izvini|both), кому, почему, рефлексия. Валидация: минимум одно из текстовых полей непустое.",
+      "prdRefs": ["6", "3"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T5",
+      "order": 5,
+      "title": "Список записей и фильтр периода",
+      "description": "Группировка по календарным дням, сортировка от новых к старым; фильтр день/неделя/месяц.",
+      "prdRefs": ["6", "3"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T6",
+      "order": 6,
+      "title": "Сводки и счётчики по периоду",
+      "description": "Итоги за день/неделю/месяц; общий счёт и разбивка по типам фразы.",
+      "prdRefs": ["3", "6"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T7",
+      "order": 7,
+      "title": "График частоты по дням",
+      "description": "Неделя или месяц; серии прости, извини, оба; легенда и подписи дат.",
+      "prdRefs": ["3", "6", "9"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T8",
+      "order": 8,
+      "title": "Экспорт JSON и предупреждение о данных",
+      "description": "Скачивание файла с schemaVersion и exportedAt; заметная подсказка о локальном хранении и риске очистки.",
+      "prdRefs": ["6", "7", "3"],
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "id": "T9",
+      "order": 9,
+      "title": "Пустые состояния и полировка",
+      "description": "Empty state без записей; согласованность копирайта и мелкие UX-исправления.",
+      "prdRefs": ["6"],
+      "status": "pending",
+      "notes": ""
+    }
+  ]
+}
