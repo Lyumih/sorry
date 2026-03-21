@@ -165,6 +165,7 @@ function AppContent() {
                           { label: periodLabel("day"), value: "day" },
                           { label: periodLabel("week"), value: "week" },
                           { label: periodLabel("month"), value: "month" },
+                          { label: periodLabel("year"), value: "year" },
                         ]}
                       />
                     </Col>
@@ -172,14 +173,24 @@ function AppContent() {
                       <DatePicker
                         value={anchor}
                         onChange={(d) => d && setAnchor(d)}
-                        picker={period === "month" ? "month" : period === "week" ? "week" : "date"}
+                        picker={
+                          period === "year"
+                            ? "year"
+                            : period === "month"
+                              ? "month"
+                              : period === "week"
+                                ? "week"
+                                : "date"
+                        }
                         allowClear={false}
                         format={
-                          period === "month"
-                            ? "MMMM YYYY"
-                            : period === "week"
-                              ? "[Неделя] w-я [неделя] YYYY"
-                              : "DD.MM.YYYY"
+                          period === "year"
+                            ? "YYYY"
+                            : period === "month"
+                              ? "MMMM YYYY"
+                              : period === "week"
+                                ? "[Неделя] w-я [неделя] YYYY"
+                                : "DD.MM.YYYY"
                         }
                       />
                     </Col>

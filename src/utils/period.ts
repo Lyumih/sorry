@@ -2,7 +2,7 @@ import type { ApologyEntry } from "../types/apologyEntry.ts";
 import { dayjs } from "../dayjs.ts";
 import type { Dayjs } from "dayjs";
 
-export type Period = "day" | "week" | "month";
+export type Period = "day" | "week" | "month" | "year";
 
 export function isInPeriod(
   entry: ApologyEntry,
@@ -18,7 +18,10 @@ export function isInPeriod(
     const end = anchor.endOf("week");
     return t.isBetween(start, end, "second", "[]");
   }
-  return t.isSame(anchor, "month");
+  if (period === "month") {
+    return t.isSame(anchor, "month");
+  }
+  return t.isSame(anchor, "year");
 }
 
 export function filterByPeriod(
@@ -36,7 +39,10 @@ export function getPeriodDayRange(anchor: Dayjs, period: Period): [Dayjs, Dayjs]
   if (period === "week") {
     return [anchor.startOf("week"), anchor.endOf("week")];
   }
-  return [anchor.startOf("month"), anchor.endOf("month")];
+  if (period === "month") {
+    return [anchor.startOf("month"), anchor.endOf("month")];
+  }
+  return [anchor.startOf("year"), anchor.endOf("year")];
 }
 
 export function periodLabel(period: Period): string {
@@ -47,6 +53,8 @@ export function periodLabel(period: Period): string {
       return "Неделя";
     case "month":
       return "Месяц";
+    case "year":
+      return "Год";
   }
 }
 
@@ -58,5 +66,8 @@ export function formatPeriodTitle(anchor: Dayjs, period: Period): string {
     const [a, b] = getPeriodDayRange(anchor, period);
     return `${a.format("D MMM")} — ${b.format("D MMM YYYY")}`;
   }
-  return anchor.format("MMMM YYYY");
+  if (period === "month") {
+    return anchor.format("MMMM YYYY");
+  }
+  return anchor.format("YYYY");
 }

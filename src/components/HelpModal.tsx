@@ -1,4 +1,5 @@
 import { Modal, Typography } from "antd";
+import { psychologyNote } from "../content/psychologyNote.ts";
 
 const { Title, Paragraph } = Typography;
 
@@ -32,10 +33,22 @@ export function HelpModal({ open, onClose }: HelpModalProps) {
           На вкладке <strong>«Дневник»</strong> быстро создаёте запись: выбираете «Я» или «Мне», заполняете поля
           и сохраняете. Ниже можно открыть недавние записи, изменить или удалить их.
         </Paragraph>
-        <Paragraph style={{ marginBottom: 0 }}>
+        <Paragraph>
           На вкладке <strong>«Статистика»</strong> смотрите записи за выбранный период, сводки и график, при
           необходимости правите записи и скачиваете резервную копию, чтобы не потерять дневник при смене
           устройства или очистке данных.
+        </Paragraph>
+
+        <Title level={5}>О смысле подсчётов</Title>
+        <Paragraph strong style={{ marginBottom: 4 }}>
+          {psychologyNote.tooManyTitle}
+        </Paragraph>
+        <Paragraph type="secondary">{psychologyNote.tooManyBody}</Paragraph>
+        <Paragraph strong style={{ marginTop: 12, marginBottom: 4 }}>
+          {psychologyNote.analysisTitle}
+        </Paragraph>
+        <Paragraph type="secondary" style={{ marginBottom: 0 }}>
+          {psychologyNote.analysisBody}
         </Paragraph>
       </Typography>
     </Modal>

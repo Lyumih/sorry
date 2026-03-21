@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, Radio, Space, Typography } from "antd";
+import { Button, DatePicker, Form, Input, Space, Typography } from "antd";
 import type { ApologyDirection, ApologyEntry, NewApologyEntry } from "../types/apologyEntry.ts";
 import { useEffect } from "react";
 import { dayjs } from "../dayjs.ts";
@@ -24,6 +24,31 @@ function valuesToNewEntry(values: FormValues): NewApologyEntry {
     reason: trim(values.reason),
     reflection: trim(values.reflection),
   };
+}
+
+type DirectionToggleProps = {
+  value?: ApologyDirection;
+  onChange?: (v: ApologyDirection) => void;
+};
+
+/** Одна кнопка: по нажатию переключает «Я» ↔ «Мне». */
+function DirectionToggleButton({ value = "i_said", onChange }: DirectionToggleProps) {
+  const next: ApologyDirection = value === "i_said" ? "said_to_me" : "i_said";
+  return (
+    <Button
+      type="text"
+      htmlType="button"
+      onClick={() => onChange?.(next)}
+      aria-pressed={value === "said_to_me"}
+      aria-label={
+        value === "i_said"
+          ? "Сейчас: я извинился. Нажмите, чтобы отметить, что вам сказали извинение"
+          : "Сейчас: мне сказали. Нажмите, чтобы отметить, что вы извинились"
+      }
+    >
+      {value === "i_said" ? "Я" : "Мне"}
+    </Button>
+  );
 }
 
 function entryToFormValues(entry: ApologyEntry): FormValues {
@@ -127,10 +152,7 @@ export function ApologyForm({
         className="apology-form-direction-to-whom-row"
         label={
           <Form.Item name="direction" noStyle>
-            <Radio.Group className="apology-form-direction-radio">
-              <Radio value="i_said">Я</Radio>
-              <Radio value="said_to_me">Мне</Radio>
-            </Radio.Group>
+            <DirectionToggleButton />
           </Form.Item>
         }
         colon={false}
@@ -175,7 +197,7 @@ export function ApologyForm({
     <Form<FormValues>
       form={form}
       layout="horizontal"
-      labelCol={{ flex: "0 0 128px" }}
+      labelCol={{ flex: "0 0 88px" }}
       wrapperCol={{ flex: "1 1 auto" }}
       labelAlign="left"
       labelWrap

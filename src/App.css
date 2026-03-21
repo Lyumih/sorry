@@ -136,17 +136,11 @@
   align-items: center;
 }
 
-/* «Я» / «Мне» и поле «кому» в одной строке: радио в колонке метки, ввод справа */
+/* «Я»/«Мне» и поле «кому» в одной строке */
 .apology-form.ant-form-horizontal .apology-form-direction-to-whom-row .ant-form-item-label > label {
   height: auto;
   min-height: var(--ant-control-height, 32px);
   align-items: center;
-}
-
-.apology-form-direction-radio.ant-radio-group {
-  display: inline-flex;
-  flex-wrap: nowrap;
-  gap: 4px;
 }
 
 /* Textarea выше строки ввода — подпись по верху, на одной линии с полем */
