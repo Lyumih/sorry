@@ -11,7 +11,7 @@
       "description": "TypeScript-типы по PRD; открытие БД, store записей, add/update/delete/getAll с id UUID и createdAt ISO8601.",
       "prdRefs": ["8", "3"],
       "status": "done",
-      "notes": "Типы в src/types/apologyEntry.ts; IndexedDB: openApologyDatabase, addEntry, updateEntry, deleteEntry, getAllEntries в src/db/apologyRepository.ts; константы БД в src/db/constants.ts."
+      "notes": "Типы в src/types/apologyEntry.ts (в т.ч. direction); IndexedDB: openApologyDatabase, addEntry, updateEntry, deleteEntry, getAllEntries в src/db/apologyRepository.ts; normalizeRow подставляет direction i_said для старых записей; константы БД в src/db/constants.ts."
     },
     {
       "id": "T2",
@@ -35,10 +35,10 @@
       "id": "T4",
       "order": 4,
       "title": "Форма записи: создание и редактирование",
-      "description": "Поля: дата/время, phraseType (prosti|izvini|both), кому, почему, рефлексия. Валидация: минимум одно из текстовых полей непустое.",
-      "prdRefs": ["6", "3"],
+      "description": "Поля: дата/время (полная форма), direction (Я/Мне, по умолчанию Я), кому/кто сказал, почему, рефлексия. Валидация: минимум одно из текстовых полей непустое.",
+      "prdRefs": ["6", "3", "8"],
       "status": "done",
-      "notes": "src/components/ApologyForm.tsx; модальное редактирование в App.tsx."
+      "notes": "src/components/ApologyForm.tsx: Radio direction, динамическая подпись к toWhom; модальное редактирование в App.tsx; EntryList — теги Я/Мне."
     },
     {
       "id": "T5",
@@ -74,7 +74,7 @@
       "description": "Скачивание файла с schemaVersion и exportedAt; заметная подсказка о локальном хранении и риске очистки.",
       "prdRefs": ["6", "7", "3"],
       "status": "done",
-      "notes": "EXPORT_SCHEMA_VERSION в src/schema/export.ts; ExportJsonButton; DataWarning Alert."
+      "notes": "EXPORT_SCHEMA_VERSION в src/schema/export.ts (учитывать direction в записях); ExportJsonButton; DataWarning Alert."
     },
     {
       "id": "T9",

@@ -1,4 +1,8 @@
-import type { ApologyEntry, NewApologyEntry } from "../types/apologyEntry.ts";
+import type {
+  ApologyDirection,
+  ApologyEntry,
+  NewApologyEntry,
+} from "../types/apologyEntry.ts";
 import {
   DB_NAME,
   DB_VERSION,
@@ -11,12 +15,19 @@ function isValidIso8601(value: string): boolean {
   return Number.isFinite(t);
 }
 
+function isApologyDirection(value: unknown): value is ApologyDirection {
+  return value === "i_said" || value === "said_to_me";
+}
+
 function assertApologyEntry(entry: ApologyEntry): void {
   if (typeof entry.id !== "string" || entry.id.length === 0) {
     throw new TypeError("ApologyEntry.id must be a non-empty string");
   }
   if (!isValidIso8601(entry.createdAt)) {
     throw new TypeError("ApologyEntry.createdAt must be a valid ISO 8601 date string");
+  }
+  if (!isApologyDirection(entry.direction)) {
+    throw new TypeError('ApologyEntry.direction must be "i_said" or "said_to_me"');
   }
   if (typeof entry.toWhom !== "string") {
     throw new TypeError("ApologyEntry.toWhom must be a string");
@@ -107,18 +118,23 @@ export async function deleteEntry(id: string): Promise<void> {
   await promisifyTransaction(tx);
 }
 
+function normalizeDirection(raw: unknown): ApologyDirection {
+  return raw === "said_to_me" ? "said_to_me" : "i_said";
+}
+
 function normalizeRow(raw: unknown): ApologyEntry {
   const r = raw as Record<string, unknown>;
   return {
     id: String(r.id),
     createdAt: String(r.createdAt),
+    direction: normalizeDirection(r.direction),
     toWhom: String(r.toWhom ?? ""),
     reason: String(r.reason ?? ""),
     reflection: String(r.reflection ?? ""),
   };
 }
 
-/** Все записи, от новых к старым по `createdAt`. Устаревшее поле `phraseType` из IndexedDB отбрасывается. */
+/** Все записи, от новых к старым по `createdAt`. У записей без `direction` подставляется `i_said`. */
 export async function getAllEntries(): Promise<ApologyEntry[]> {
   const db = await openApologyDatabase();
   const tx = db.transaction(STORE_ENTRIES, "readonly");

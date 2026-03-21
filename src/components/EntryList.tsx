@@ -55,8 +55,17 @@ export function EntryList({
                   <div style={{ flex: "1 1 240px", minWidth: 0 }}>
                     <Space wrap>
                       <Tag color="blue">Прости, Извини</Tag>
+                      <Tag color={item.direction === "said_to_me" ? "orange" : "geekblue"}>
+                        {item.direction === "said_to_me" ? "Мне" : "Я"}
+                      </Tag>
                       <Typography.Text>
-                        {item.toWhom ? `Кому: ${item.toWhom}` : "Кому не указано"}
+                        {item.direction === "said_to_me"
+                          ? item.toWhom
+                            ? `Кто: ${item.toWhom}`
+                            : "Кто не указано"
+                          : item.toWhom
+                            ? `Кому: ${item.toWhom}`
+                            : "Кому не указано"}
                       </Typography.Text>
                     </Space>
                     <div style={{ marginTop: 8 }}>

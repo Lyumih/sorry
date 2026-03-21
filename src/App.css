@@ -96,6 +96,15 @@
   border-radius: 8px;
 }
 
+.journal-feed-collapse .ant-collapse-header {
+  justify-content: center;
+}
+
+.journal-feed-collapse .ant-collapse-header-text {
+  flex: 0 1 auto;
+  text-align: center;
+}
+
 .apology-form-heading-block {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -125,6 +134,19 @@
 /* Строка label + поле: по центру для однострочных контролов (antd по умолчанию тянет label на фиксированную высоту) */
 .apology-form.ant-form-horizontal .ant-form-item-row {
   align-items: center;
+}
+
+/* «Я» / «Мне» и поле «кому» в одной строке: радио в колонке метки, ввод справа */
+.apology-form.ant-form-horizontal .apology-form-direction-to-whom-row .ant-form-item-label > label {
+  height: auto;
+  min-height: var(--ant-control-height, 32px);
+  align-items: center;
+}
+
+.apology-form-direction-radio.ant-radio-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 4px;
 }
 
 /* Textarea выше строки ввода — подпись по верху, на одной линии с полем */

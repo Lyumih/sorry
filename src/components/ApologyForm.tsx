@@ -1,11 +1,12 @@
-import { Button, DatePicker, Form, Input, Space, Typography } from "antd";
-import type { ApologyEntry, NewApologyEntry } from "../types/apologyEntry.ts";
+import { Button, DatePicker, Form, Input, Radio, Space, Typography } from "antd";
+import type { ApologyDirection, ApologyEntry, NewApologyEntry } from "../types/apologyEntry.ts";
 import { useEffect } from "react";
 import { dayjs } from "../dayjs.ts";
 import type { Dayjs } from "dayjs";
 
 type FormValues = {
   createdAt: Dayjs;
+  direction: ApologyDirection;
   toWhom: string;
   reason: string;
   reflection: string;
@@ -18,6 +19,7 @@ function trim(s: string | undefined): string {
 function valuesToNewEntry(values: FormValues): NewApologyEntry {
   return {
     createdAt: values.createdAt.toISOString(),
+    direction: values.direction ?? "i_said",
     toWhom: trim(values.toWhom),
     reason: trim(values.reason),
     reflection: trim(values.reflection),
@@ -27,6 +29,7 @@ function valuesToNewEntry(values: FormValues): NewApologyEntry {
 function entryToFormValues(entry: ApologyEntry): FormValues {
   return {
     createdAt: dayjs(entry.createdAt),
+    direction: entry.direction,
     toWhom: entry.toWhom,
     reason: entry.reason,
     reflection: entry.reflection,
@@ -52,6 +55,7 @@ export function ApologyForm({
   variant = "full",
 }: Props) {
   const [form] = Form.useForm<FormValues>();
+  const direction = Form.useWatch("direction", form) ?? "i_said";
 
   useEffect(() => {
     if (initial) {
@@ -75,6 +79,7 @@ export function ApologyForm({
     const effective: FormValues =
       variant === "minimal" && !initial
         ? {
+            direction: values.direction ?? "i_said",
             toWhom: values.toWhom ?? "",
             reason: values.reason ?? "",
             reflection: values.reflection ?? "",
@@ -89,6 +94,7 @@ export function ApologyForm({
       form.resetFields();
       form.setFieldsValue({
         createdAt: dayjs(),
+        direction: "i_said",
         toWhom: "",
         reason: "",
         reflection: "",
@@ -117,8 +123,29 @@ export function ApologyForm({
 
   const mainFields = (
     <>
-      <Form.Item label="Кому" name="toWhom">
-        <Input placeholder="Например: коллеге, партнёру" allowClear />
+      <Form.Item
+        className="apology-form-direction-to-whom-row"
+        label={
+          <Form.Item name="direction" noStyle>
+            <Radio.Group className="apology-form-direction-radio">
+              <Radio value="i_said">Я</Radio>
+              <Radio value="said_to_me">Мне</Radio>
+            </Radio.Group>
+          </Form.Item>
+        }
+        colon={false}
+      >
+        <Form.Item name="toWhom" noStyle>
+          <Input
+            placeholder={
+              direction === "said_to_me"
+                ? "Например: коллега, партнёр"
+                : "Например: коллеге, партнёру"
+            }
+            aria-label={direction === "said_to_me" ? "Кто сказал" : "Кому"}
+            allowClear
+          />
+        </Form.Item>
       </Form.Item>
 
       <Form.Item label="Почему" name="reason">
@@ -148,7 +175,7 @@ export function ApologyForm({
     <Form<FormValues>
       form={form}
       layout="horizontal"
-      labelCol={{ flex: "0 0 104px" }}
+      labelCol={{ flex: "0 0 128px" }}
       wrapperCol={{ flex: "1 1 auto" }}
       labelAlign="left"
       labelWrap
@@ -156,6 +183,7 @@ export function ApologyForm({
       className={variant === "minimal" ? "apology-form apology-form-minimal" : "apology-form"}
       initialValues={{
         createdAt: dayjs(),
+        direction: "i_said" satisfies ApologyDirection,
         toWhom: "",
         reason: "",
         reflection: "",

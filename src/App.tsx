@@ -119,10 +119,11 @@ function AppContent() {
               <Collapse
                 bordered={false}
                 className="journal-feed-collapse"
+                expandIcon={() => null}
                 items={[
                   {
                     key: "feed",
-                    label: `Недавние записи (${entries.length})`,
+                    label: `История (${entries.length})`,
                     children: (
                       <EntryList
                         entries={entries}
