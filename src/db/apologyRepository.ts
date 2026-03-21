@@ -6,12 +6,6 @@ import {
   STORE_ENTRIES,
 } from "./constants.ts";
 
-const PHRASE_TYPES = new Set<ApologyEntry["phraseType"]>([
-  "prosti",
-  "izvini",
-  "both",
-]);
-
 function isValidIso8601(value: string): boolean {
   const t = Date.parse(value);
   return Number.isFinite(t);
@@ -23,9 +17,6 @@ function assertApologyEntry(entry: ApologyEntry): void {
   }
   if (!isValidIso8601(entry.createdAt)) {
     throw new TypeError("ApologyEntry.createdAt must be a valid ISO 8601 date string");
-  }
-  if (!PHRASE_TYPES.has(entry.phraseType)) {
-    throw new TypeError('ApologyEntry.phraseType must be "prosti", "izvini", or "both"');
   }
   if (typeof entry.toWhom !== "string") {
     throw new TypeError("ApologyEntry.toWhom must be a string");
@@ -116,16 +107,27 @@ export async function deleteEntry(id: string): Promise<void> {
   await promisifyTransaction(tx);
 }
 
-/** Все записи, от новых к старым по `createdAt`. */
+function normalizeRow(raw: unknown): ApologyEntry {
+  const r = raw as Record<string, unknown>;
+  return {
+    id: String(r.id),
+    createdAt: String(r.createdAt),
+    toWhom: String(r.toWhom ?? ""),
+    reason: String(r.reason ?? ""),
+    reflection: String(r.reflection ?? ""),
+  };
+}
+
+/** Все записи, от новых к старым по `createdAt`. Устаревшее поле `phraseType` из IndexedDB отбрасывается. */
 export async function getAllEntries(): Promise<ApologyEntry[]> {
   const db = await openApologyDatabase();
   const tx = db.transaction(STORE_ENTRIES, "readonly");
   const store = tx.objectStore(STORE_ENTRIES);
   const index = store.index(INDEX_CREATED_AT);
-  const rows = await promisifyRequest(index.getAll() as IDBRequest<ApologyEntry[]>);
+  const rows = await promisifyRequest(index.getAll() as IDBRequest<unknown[]>);
   await promisifyTransaction(tx);
-  const sorted = [...rows].sort(
-    (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
-  );
+  const sorted = [...rows]
+    .map(normalizeRow)
+    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
   return sorted;
 }

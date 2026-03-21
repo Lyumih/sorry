@@ -84,6 +84,15 @@
       "prdRefs": ["6"],
       "status": "done",
       "notes": "Empty в EntryList при пустом периоде; Spin при гидратации; Space orientation вместо direction."
+    },
+    {
+      "id": "T10",
+      "order": 10,
+      "title": "Два экрана: дневник и статистика",
+      "description": "Экран «Дневник»: минимальная форма (кому, почему, анализ), дата/тип в свёрнутом блоке; снизу раскрывающаяся лента записей. Экран «Статистика»: период, сводки, график, полный список, экспорт, форма новой записи.",
+      "prdRefs": ["9"],
+      "status": "done",
+      "notes": "Segmented в шапке; ApologyForm variant minimal; Collapse с EntryList; stats — прежний двухколоночный layout."
     }
   ]
 }

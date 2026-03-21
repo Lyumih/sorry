@@ -1,4 +1,4 @@
-import { Card, Col, Row, Statistic } from "antd";
+import { Card, Col, Row, Statistic, Typography } from "antd";
 import type { PhraseCounts } from "../utils/aggregates.ts";
 
 type Props = {
@@ -9,18 +9,12 @@ type Props = {
 export function StatsPanel({ counts, periodTitle }: Props) {
   return (
     <Card title={`Сводка: ${periodTitle}`}>
+      <Typography.Paragraph type="secondary" style={{ marginTop: 0 }}>
+        Формулировка: «Прости, Извини»
+      </Typography.Paragraph>
       <Row gutter={[16, 16]}>
-        <Col xs={12} sm={8}>
-          <Statistic title="Всего записей" value={counts.total} />
-        </Col>
-        <Col xs={12} sm={8}>
-          <Statistic title="«Прости»" value={counts.prosti} />
-        </Col>
-        <Col xs={12} sm={8}>
-          <Statistic title="«Извини»" value={counts.izvini} />
-        </Col>
-        <Col xs={12} sm={8}>
-          <Statistic title="Оба / не различаю" value={counts.both} />
+        <Col xs={24} sm={12}>
+          <Statistic title="Записей за период" value={counts.total} />
         </Col>
       </Row>
     </Card>

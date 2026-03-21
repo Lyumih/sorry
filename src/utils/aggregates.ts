@@ -4,27 +4,17 @@ import type { Dayjs } from "dayjs";
 
 export type PhraseCounts = {
   total: number;
-  prosti: number;
-  izvini: number;
-  both: number;
 };
 
 export function aggregatePhraseCounts(entries: ApologyEntry[]): PhraseCounts {
-  const counts: PhraseCounts = { total: entries.length, prosti: 0, izvini: 0, both: 0 };
-  for (const e of entries) {
-    if (e.phraseType === "prosti") counts.prosti += 1;
-    else if (e.phraseType === "izvini") counts.izvini += 1;
-    else counts.both += 1;
-  }
-  return counts;
+  return { total: entries.length };
 }
 
 export type DailyPoint = {
   dateKey: string;
   label: string;
-  prosti: number;
-  izvini: number;
-  both: number;
+  /** Число записей за день (форма «Прости, Извини»). */
+  count: number;
 };
 
 /** Одна точка на календарный день в диапазоне [start, end] включительно. */
@@ -33,32 +23,27 @@ export function buildDailyPoints(
   rangeStart: Dayjs,
   rangeEnd: Dayjs,
 ): DailyPoint[] {
-  const byDay = new Map<string, { prosti: number; izvini: number; both: number }>();
+  const byDay = new Map<string, number>();
   let d = rangeStart.startOf("day");
   const last = rangeEnd.endOf("day");
   while (d.isBefore(last) || d.isSame(last, "day")) {
     const key = d.format("YYYY-MM-DD");
-    byDay.set(key, { prosti: 0, izvini: 0, both: 0 });
+    byDay.set(key, 0);
     d = d.add(1, "day");
   }
 
   for (const e of entries) {
     const key = dayjs(e.createdAt).format("YYYY-MM-DD");
     if (!byDay.has(key)) continue;
-    const row = byDay.get(key)!;
-    if (e.phraseType === "prosti") row.prosti += 1;
-    else if (e.phraseType === "izvini") row.izvini += 1;
-    else row.both += 1;
+    byDay.set(key, byDay.get(key)! + 1);
   }
 
   return [...byDay.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
-    .map(([dateKey, v]) => ({
+    .map(([dateKey, count]) => ({
       dateKey,
       label: dayjs(dateKey).format("DD.MM"),
-      prosti: v.prosti,
-      izvini: v.izvini,
-      both: v.both,
+      count,
     }));
 }
 

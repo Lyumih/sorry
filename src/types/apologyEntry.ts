@@ -1,12 +1,8 @@
-/** Тип фразы извинения (PRD §8). */
-export type PhraseType = "prosti" | "izvini" | "both";
-
-/** Запись дневника извинений (PRD §8). */
+/** Запись дневника извинений (PRD §8). Одна формулировка для всех записей: «Прости, Извини». */
 export interface ApologyEntry {
   id: string;
   /** Момент события, ISO 8601. */
   createdAt: string;
-  phraseType: PhraseType;
   toWhom: string;
   reason: string;
   reflection: string;

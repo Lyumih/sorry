@@ -3,36 +3,36 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ApologyEntry } from "../types/apologyEntry.ts";
 import { groupEntriesByDay } from "../utils/aggregates.ts";
 
-const phraseTag = (t: ApologyEntry["phraseType"]) => {
-  switch (t) {
-    case "prosti":
-      return <Tag color="blue">Прости</Tag>;
-    case "izvini":
-      return <Tag color="purple">Извини</Tag>;
-    default:
-      return <Tag>Оба</Tag>;
-  }
-};
-
 type Props = {
   entries: ApologyEntry[];
   onEdit: (entry: ApologyEntry) => void;
   onDelete: (id: string) => void;
+  /** Заголовок карточки; `false` — без заголовка (например внутри свёрнутой панели). */
+  title?: string | false;
+  emptyDescription?: string;
 };
 
-export function EntryList({ entries, onEdit, onDelete }: Props) {
+const DEFAULT_EMPTY = "Пока нет записей за выбранный период — добавьте первую или смените дату.";
+
+export function EntryList({
+  entries,
+  onEdit,
+  onDelete,
+  title = "Записи",
+  emptyDescription = DEFAULT_EMPTY,
+}: Props) {
   const groups = groupEntriesByDay(entries);
 
   if (entries.length === 0) {
     return (
-      <Card title="Записи">
-        <Empty description="Пока нет записей за выбранный период — добавьте первую или смените дату." />
+      <Card title={title === false ? undefined : title}>
+        <Empty description={emptyDescription} />
       </Card>
     );
   }
 
   return (
-    <Card title="Записи">
+    <Card title={title === false ? undefined : title}>
       <Space orientation="vertical" size="large" style={{ width: "100%" }}>
         {groups.map(({ dayLabel, items }) => (
           <div key={dayLabel}>
@@ -54,7 +54,7 @@ export function EntryList({ entries, onEdit, onDelete }: Props) {
                 >
                   <div style={{ flex: "1 1 240px", minWidth: 0 }}>
                     <Space wrap>
-                      {phraseTag(item.phraseType)}
+                      <Tag color="blue">Прости, Извини</Tag>
                       <Typography.Text>
                         {item.toWhom ? `Кому: ${item.toWhom}` : "Кому не указано"}
                       </Typography.Text>
@@ -65,7 +65,7 @@ export function EntryList({ entries, onEdit, onDelete }: Props) {
                           <Typography.Text type="secondary">Почему: {item.reason}</Typography.Text>
                         ) : null}
                         {item.reflection ? (
-                          <Typography.Text>Выводы: {item.reflection}</Typography.Text>
+                          <Typography.Text>Анализ: {item.reflection}</Typography.Text>
                         ) : null}
                       </Space>
                     </div>

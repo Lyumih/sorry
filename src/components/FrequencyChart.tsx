@@ -5,11 +5,11 @@ import type { DailyPoint } from "../utils/aggregates.ts";
 type Row = { label: string; type: string; count: number };
 
 function toChartData(points: DailyPoint[]): Row[] {
-  return points.flatMap((p) => [
-    { label: p.label, type: "Прости", count: p.prosti },
-    { label: p.label, type: "Извини", count: p.izvini },
-    { label: p.label, type: "Оба", count: p.both },
-  ]);
+  return points.map((p) => ({
+    label: p.label,
+    type: "Прости, Извини",
+    count: p.count,
+  }));
 }
 
 type Props = {
