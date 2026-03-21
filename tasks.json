@@ -10,8 +10,8 @@
       "title": "Типы ApologyEntry и слой IndexedDB",
       "description": "TypeScript-типы по PRD; открытие БД, store записей, add/update/delete/getAll с id UUID и createdAt ISO8601.",
       "prdRefs": ["8", "3"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "Типы в src/types/apologyEntry.ts; IndexedDB: openApologyDatabase, addEntry, updateEntry, deleteEntry, getAllEntries в src/db/apologyRepository.ts; константы БД в src/db/constants.ts."
     },
     {
       "id": "T2",
@@ -19,8 +19,8 @@
       "title": "Zustand store и синхронизация с IndexedDB",
       "description": "Состояние списка записей, гидратация при старте, сохранение после мутаций.",
       "prdRefs": ["11"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "src/store/useApologyStore.ts: hydrate, add, update, remove с рефетчем getAllEntries."
     },
     {
       "id": "T3",
@@ -28,8 +28,8 @@
       "title": "Каркас приложения и русская локаль UI",
       "description": "Layout главного экрана, Ant Design ConfigProvider, русские подписи интерфейса.",
       "prdRefs": ["9"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "ConfigProvider locale ru_RU, Layout/Header/Content, src/App.css, index.html lang=ru."
     },
     {
       "id": "T4",
@@ -37,8 +37,8 @@
       "title": "Форма записи: создание и редактирование",
       "description": "Поля: дата/время, phraseType (prosti|izvini|both), кому, почему, рефлексия. Валидация: минимум одно из текстовых полей непустое.",
       "prdRefs": ["6", "3"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "src/components/ApologyForm.tsx; модальное редактирование в App.tsx."
     },
     {
       "id": "T5",
@@ -46,8 +46,8 @@
       "title": "Список записей и фильтр периода",
       "description": "Группировка по календарным дням, сортировка от новых к старым; фильтр день/неделя/месяц.",
       "prdRefs": ["6", "3"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "EntryList + groupEntriesByDay; Segmented + DatePicker; filterByPeriod (dayjs ru, неделя с понедельника)."
     },
     {
       "id": "T6",
@@ -55,8 +55,8 @@
       "title": "Сводки и счётчики по периоду",
       "description": "Итоги за день/неделю/месяц; общий счёт и разбивка по типам фразы.",
       "prdRefs": ["3", "6"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "StatsPanel + aggregatePhraseCounts по отфильтрованным записям."
     },
     {
       "id": "T7",
@@ -64,8 +64,8 @@
       "title": "График частоты по дням",
       "description": "Неделя или месяц; серии прости, извини, оба; легенда и подписи дат.",
       "prdRefs": ["3", "6", "9"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "FrequencyChart: @ant-design/charts Line, три серии; скрыт при периоде «день»."
     },
     {
       "id": "T8",
@@ -73,8 +73,8 @@
       "title": "Экспорт JSON и предупреждение о данных",
       "description": "Скачивание файла с schemaVersion и exportedAt; заметная подсказка о локальном хранении и риске очистки.",
       "prdRefs": ["6", "7", "3"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "EXPORT_SCHEMA_VERSION в src/schema/export.ts; ExportJsonButton; DataWarning Alert."
     },
     {
       "id": "T9",
@@ -82,8 +82,8 @@
       "title": "Пустые состояния и полировка",
       "description": "Empty state без записей; согласованность копирайта и мелкие UX-исправления.",
       "prdRefs": ["6"],
-      "status": "pending",
-      "notes": ""
+      "status": "done",
+      "notes": "Empty в EntryList при пустом периоде; Spin при гидратации; Space orientation вместо direction."
     }
   ]
 }
