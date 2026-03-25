@@ -141,22 +141,9 @@ function AppContent() {
         ) : (
           <div className="app-inner">
             <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
-              <Col xs={24} lg={10}>
-                <Card>
-                  <ApologyForm
-                    submitLabel="Сохранить запись"
-                    onSubmit={async (p) => {
-                      await add(p);
-                    }}
-                  />
-                </Card>
-                <Card style={{ marginTop: 16 }} title="Данные">
-                  <ExportJsonButton entries={entries} />
-                </Card>
-              </Col>
-              <Col xs={24} lg={14}>
+              <Col xs={24}>
                 <Card title="Период" styles={{ body: { paddingBottom: 8 } }}>
-                  <Row gutter={[12, 12]} align="middle">
+                  <Row gutter={[12, 12]} align="middle" wrap>
                     <Col flex="auto">
                       <Segmented<Period>
                         value={period}
@@ -193,6 +180,9 @@ function AppContent() {
                                 : "DD.MM.YYYY"
                         }
                       />
+                    </Col>
+                    <Col flex="none">
+                      <ExportJsonButton entries={entries} />
                     </Col>
                   </Row>
                 </Card>
