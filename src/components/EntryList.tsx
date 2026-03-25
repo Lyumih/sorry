@@ -2,6 +2,7 @@ import { Button, Card, Empty, Flex, Popconfirm, Space, Tag, Typography } from "a
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ApologyEntry } from "../types/apologyEntry.ts";
 import { groupEntriesByDay } from "../utils/aggregates.ts";
+import { buildApologyNarrative } from "../utils/apologyNarrative.ts";
 
 type Props = {
   entries: ApologyEntry[];
@@ -53,31 +54,15 @@ export function EntryList({
                   }}
                 >
                   <div style={{ flex: "1 1 240px", minWidth: 0 }}>
-                    <Space wrap>
+                    <Space wrap align="start">
                       <Tag color="blue">Прости, Извини</Tag>
                       <Tag color={item.direction === "said_to_me" ? "orange" : "geekblue"}>
                         {item.direction === "said_to_me" ? "Мне" : "Я"}
                       </Tag>
-                      <Typography.Text>
-                        {item.direction === "said_to_me"
-                          ? item.toWhom
-                            ? `Кто: ${item.toWhom}`
-                            : "Кто не указано"
-                          : item.toWhom
-                            ? `Кому: ${item.toWhom}`
-                            : "Кому не указано"}
-                      </Typography.Text>
                     </Space>
-                    <div style={{ marginTop: 8 }}>
-                      <Space orientation="vertical" size={4}>
-                        {item.reason ? (
-                          <Typography.Text type="secondary">Почему: {item.reason}</Typography.Text>
-                        ) : null}
-                        {item.reflection ? (
-                          <Typography.Text>Анализ: {item.reflection}</Typography.Text>
-                        ) : null}
-                      </Space>
-                    </div>
+                    <Typography.Paragraph style={{ marginTop: 8, marginBottom: 0 }}>
+                      {buildApologyNarrative(item)}
+                    </Typography.Paragraph>
                   </div>
                   <Space>
                     <Button

@@ -96,7 +96,7 @@ export function ApologyForm({
       form.setFields([
         {
           name: "reason",
-          errors: ["Заполните хотя бы одно поле: кому, почему или анализ"],
+          errors: ["Заполните хотя бы одно поле: перед кем / за что / выводы"],
         },
       ]);
       return;
@@ -146,38 +146,109 @@ export function ApologyForm({
     </Form.Item>
   );
 
+  const filledInputProps = {
+    variant: "filled" as const,
+    className: "apology-form-narrative-input",
+  };
+
   const mainFields = (
     <>
       <Form.Item
-        className="apology-form-direction-to-whom-row"
-        label={
-          <Form.Item name="direction" noStyle>
-            <DirectionToggleButton />
-          </Form.Item>
-        }
         colon={false}
+        labelCol={{ flex: "0 0 0" }}
+        wrapperCol={{ flex: "1 1 auto" }}
+        className="apology-form-narrative-block"
       >
-        <Form.Item name="toWhom" noStyle>
-          <Input
-            placeholder={
-              direction === "said_to_me" ? "Кто? Например, коллега" : "Кому? Например, коллеге"
-            }
-            aria-label={direction === "said_to_me" ? "Кто сказал" : "Кому"}
-            allowClear
-          />
-        </Form.Item>
-      </Form.Item>
+        <div className="apology-form-narrative-flow">
+          <div className="apology-form-narrative-direction">
+            <Typography.Text type="secondary" className="apology-form-narrative-direction-label">
+              Кто извинялся:
+            </Typography.Text>
+            <Form.Item name="direction" noStyle>
+              <DirectionToggleButton />
+            </Form.Item>
+          </div>
 
-      <Form.Item label="Почему" name="reason">
-        <Input.TextArea rows={2} placeholder="Что произошло" allowClear />
-      </Form.Item>
-
-      <Form.Item label="Анализ" name="reflection">
-        <Input.TextArea
-          rows={2}
-          placeholder="Какие выводы — что понял, что сделаете иначе"
-          allowClear
-        />
+          <div className="apology-form-narrative-body apology-form-narrative-stack">
+            {direction === "i_said" ? (
+              <>
+                <div className="apology-form-narrative-line apology-form-narrative-one-line">
+                  <span className="apology-form-narrative-text">Я извинился перед </span>
+                  <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--name">
+                    <Form.Item name="toWhom" noStyle>
+                      <Input
+                        {...filledInputProps}
+                        placeholder="Имя"
+                        aria-label="Перед кем вы извинились"
+                      />
+                    </Form.Item>
+                  </div>
+                  <span className="apology-form-narrative-text"> за </span>
+                  <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--reason">
+                    <Form.Item name="reason" noStyle>
+                      <Input
+                        {...filledInputProps}
+                        placeholder="что сделал(а) не так"
+                        aria-label="За что вы извинились"
+                      />
+                    </Form.Item>
+                  </div>
+                  <span className="apology-form-narrative-text">.</span>
+                </div>
+                <div className="apology-form-narrative-line apology-form-narrative-line--reflection apology-form-narrative-one-line">
+                  <span className="apology-form-narrative-text">Мои выводы на будущее</span>
+                  <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--reflection">
+                    <Form.Item name="reflection" noStyle>
+                      <Input
+                        {...filledInputProps}
+                        placeholder="что понял(а), что сделаю иначе"
+                        aria-label="Мои выводы на будущее"
+                      />
+                    </Form.Item>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="apology-form-narrative-line apology-form-narrative-one-line">
+                  <span className="apology-form-narrative-text">У меня попросили прощения у </span>
+                  <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--name">
+                    <Form.Item name="toWhom" noStyle>
+                      <Input
+                        {...filledInputProps}
+                        placeholder="кто"
+                        aria-label="Кто попросил прощения"
+                      />
+                    </Form.Item>
+                  </div>
+                  <span className="apology-form-narrative-text"> за </span>
+                  <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--reason">
+                    <Form.Item name="reason" noStyle>
+                      <Input
+                        {...filledInputProps}
+                        placeholder="за что просили прощения"
+                        aria-label="За что попросили прощения"
+                      />
+                    </Form.Item>
+                  </div>
+                  <span className="apology-form-narrative-text">.</span>
+                </div>
+                <div className="apology-form-narrative-line apology-form-narrative-line--reflection apology-form-narrative-one-line">
+                  <span className="apology-form-narrative-text">Мои выводы на будущее</span>
+                  <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--reflection">
+                    <Form.Item name="reflection" noStyle>
+                      <Input
+                        {...filledInputProps}
+                        placeholder="что понял(а), что сделаю иначе"
+                        aria-label="Мои выводы на будущее"
+                      />
+                    </Form.Item>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </Form.Item>
     </>
   );
@@ -195,7 +266,7 @@ export function ApologyForm({
     <Form<FormValues>
       form={form}
       layout="horizontal"
-      labelCol={{ flex: "0 0 88px" }}
+      labelCol={{ flex: "0 0 100px" }}
       wrapperCol={{ flex: "1 1 auto" }}
       labelAlign="left"
       labelWrap

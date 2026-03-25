@@ -136,21 +136,103 @@
   align-items: center;
 }
 
-/* «Я»/«Мне» и поле «кому» в одной строке */
-.apology-form.ant-form-horizontal .apology-form-direction-to-whom-row .ant-form-item-label > label {
-  height: auto;
-  min-height: var(--ant-control-height, 32px);
+.apology-form-narrative-block .ant-form-item-control-input {
+  min-height: 0;
+}
+
+.apology-form-narrative-flow {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.apology-form-narrative-direction {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 1rem;
 }
 
-/* Textarea выше строки ввода — подпись по верху, на одной линии с полем */
-.apology-form.ant-form-horizontal .ant-form-item:has(textarea) .ant-form-item-row {
-  align-items: flex-start;
+.apology-form-narrative-direction-label {
+  font-size: 0.92rem;
 }
 
-.apology-form.ant-form-horizontal .ant-form-item:has(textarea) .ant-form-item-label > label {
-  height: auto;
-  min-height: var(--ant-control-height, 32px);
-  align-items: flex-start;
-  padding-top: 5px;
+.apology-form-narrative-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.apology-form-narrative-stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.apology-form-narrative-line {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+}
+
+.apology-form-narrative-line.apology-form-narrative-one-line {
+  column-gap: 0.28em;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.apology-form-narrative-line--reflection {
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.apology-form-narrative-line.apology-form-narrative-one-line .apology-form-narrative-text {
+  flex-shrink: 0;
+  white-space: nowrap;
+  margin-top: 0;
+}
+
+.apology-form-narrative-field-wrap {
+  flex: 1 1 120px;
+  min-width: min(8rem, 24vw);
+  max-width: 45%;
+}
+
+.apology-form-narrative-field-wrap--name {
+  flex: 0 1 9rem;
+  min-width: 5.5rem;
+  max-width: 28%;
+}
+
+.apology-form-narrative-field-wrap--reason {
+  flex: 1 1 140px;
+  min-width: min(10rem, 32vw);
+  max-width: 50%;
+}
+
+.apology-form-narrative-field-wrap--reflection {
+  flex: 1 1 200px;
+  min-width: min(12rem, 55vw);
+  max-width: 100%;
+}
+
+.apology-form-narrative-line--reflection .apology-form-narrative-field-wrap--reflection {
+  max-width: min(100%, 42rem);
+}
+
+.apology-form-narrative-field-wrap .ant-form-item {
+  margin-bottom: 0;
+}
+
+.apology-form-narrative-input {
+  width: 100%;
+  margin: 0;
+  font-size: inherit !important;
+  line-height: inherit !important;
 }
