@@ -35,7 +35,9 @@ type DirectionControlProps = {
 function NarrativeDirectionFromMe({ onChange }: DirectionControlProps) {
   return (
     <Button
-      type="text"
+      variant="dashed"
+      color="default"
+      size="small"
       htmlType="button"
       className="apology-form-direction-inline"
       onClick={() => onChange?.("said_to_me")}
@@ -50,7 +52,9 @@ function NarrativeDirectionFromMe({ onChange }: DirectionControlProps) {
 function NarrativeDirectionToMe({ onChange }: DirectionControlProps) {
   return (
     <Button
-      type="text"
+      variant="dashed"
+      color="default"
+      size="small"
       htmlType="button"
       className="apology-form-direction-inline"
       onClick={() => onChange?.("i_said")}

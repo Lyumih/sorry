@@ -158,30 +158,19 @@
   color: rgba(0, 0, 0, 0.88);
 }
 
-/* «Я» / «У меня» в тексте фразы — выглядит как слово, не как отдельный контрол */
+/* «Я» / «У меня» — dashed, заметнее текста, но без акцента primary */
 .apology-form-direction-inline.ant-btn {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   height: auto;
-  padding: 0 0.06em;
+  min-height: 1.4em;
+  padding: 0 0.45em 1px;
   margin: 0;
   font: inherit;
-  line-height: inherit;
-  color: inherit;
+  font-weight: 500;
+  line-height: 1.35;
   vertical-align: baseline;
-  border: none;
-  box-shadow: none;
   flex-shrink: 0;
-}
-
-.apology-form-direction-inline.ant-btn:not(:disabled):hover {
-  color: var(--ant-color-primary, #1677ff);
-  background: transparent;
-}
-
-.apology-form-direction-inline.ant-btn:focus-visible {
-  outline: 2px solid var(--ant-color-primary, #1677ff);
-  outline-offset: 2px;
 }
 
 .apology-form-narrative-body {
