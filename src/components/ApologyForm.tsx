@@ -1,6 +1,12 @@
 import { Button, DatePicker, Form, Input, Space, Typography } from "antd";
 import type { ApologyDirection, ApologyEntry, NewApologyEntry } from "../types/apologyEntry.ts";
 import { useEffect } from "react";
+import { useSpeakerPrefsStore } from "../store/useSpeakerPrefsStore.ts";
+import {
+  apologyVerbFromMe,
+  reasonDidWrongPlaceholder,
+  reflectionPlaceholder,
+} from "../utils/speakerCopy.ts";
 import { dayjs } from "../dayjs.ts";
 import type { Dayjs } from "dayjs";
 
@@ -95,6 +101,7 @@ export function ApologyForm({
 }: Props) {
   const [form] = Form.useForm<FormValues>();
   const direction = Form.useWatch("direction", form) ?? "i_said";
+  const speakerGender = useSpeakerPrefsStore((s) => s.speakerGender);
 
   useEffect(() => {
     if (initial) {
@@ -181,7 +188,10 @@ export function ApologyForm({
                   <Form.Item name="direction" noStyle>
                     <NarrativeDirectionFromMe />
                   </Form.Item>
-                  <span className="apology-form-narrative-text"> извинился(лась) перед </span>
+                  <span className="apology-form-narrative-text">
+                    {" "}
+                    {apologyVerbFromMe(speakerGender)} перед{" "}
+                  </span>
                   <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--name">
                     <Form.Item name="toWhom" noStyle>
                       <Input
@@ -196,7 +206,7 @@ export function ApologyForm({
                     <Form.Item name="reason" noStyle>
                       <Input
                         {...filledInputProps}
-                        placeholder="что сделал(а) не так"
+                        placeholder={reasonDidWrongPlaceholder(speakerGender)}
                         aria-label="За что вы извинились"
                       />
                     </Form.Item>
@@ -209,7 +219,7 @@ export function ApologyForm({
                     <Form.Item name="reflection" noStyle>
                       <Input
                         {...filledInputProps}
-                        placeholder="что понял(а), что сделаю иначе"
+                        placeholder={reflectionPlaceholder(speakerGender)}
                         aria-label="Мои выводы на будущее"
                       />
                     </Form.Item>
@@ -250,7 +260,7 @@ export function ApologyForm({
                     <Form.Item name="reflection" noStyle>
                       <Input
                         {...filledInputProps}
-                        placeholder="что понял(а), что сделаю иначе"
+                        placeholder={reflectionPlaceholder(speakerGender)}
                         aria-label="Мои выводы на будущее"
                       />
                     </Form.Item>
