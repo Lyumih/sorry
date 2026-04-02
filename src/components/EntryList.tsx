@@ -2,7 +2,7 @@ import { Button, Card, Empty, Flex, Popconfirm, Space, Tag, Typography } from "a
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ApologyEntry } from "../types/apologyEntry.ts";
 import { groupEntriesByDay } from "../utils/aggregates.ts";
-import { DEFAULT_SPEAKER_GENDER } from "../types/speakerGender.ts";
+import { useSpeakerPrefsStore } from "../store/useSpeakerPrefsStore.ts";
 import { buildApologyNarrative } from "../utils/apologyNarrative.ts";
 
 type Props = {
@@ -23,6 +23,7 @@ export function EntryList({
   title = "Записи",
   emptyDescription = DEFAULT_EMPTY,
 }: Props) {
+  const speakerGender = useSpeakerPrefsStore((s) => s.speakerGender);
   const groups = groupEntriesByDay(entries);
 
   if (entries.length === 0) {
@@ -62,7 +63,7 @@ export function EntryList({
                       </Tag>
                     </Space>
                     <Typography.Paragraph style={{ marginTop: 8, marginBottom: 0 }}>
-                      {buildApologyNarrative(item, DEFAULT_SPEAKER_GENDER)}
+                      {buildApologyNarrative(item, speakerGender)}
                     </Typography.Paragraph>
                   </div>
                   <Space>

@@ -14,12 +14,13 @@ import {
   Spin,
 } from "antd";
 import { appRuLocale } from "./locale/appRuLocale.ts";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined, SettingOutlined } from "@ant-design/icons";
 import { ApologyForm } from "./components/ApologyForm.tsx";
 import { EntryList } from "./components/EntryList.tsx";
 import { DataWarning } from "./components/DataWarning.tsx";
 import { ExportJsonButton } from "./components/ExportJsonButton.tsx";
 import { HelpModal } from "./components/HelpModal.tsx";
+import { SettingsModal } from "./components/SettingsModal.tsx";
 import { StatsPanel } from "./components/StatsPanel.tsx";
 
 const FrequencyChart = lazy(async () => {
@@ -51,6 +52,7 @@ function AppContent() {
   const [anchor, setAnchor] = useState<Dayjs>(() => dayjs());
   const [editing, setEditing] = useState<ApologyEntry | null>(null);
   const [helpOpen, setHelpOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     void hydrate();
@@ -91,6 +93,13 @@ function AppContent() {
             { label: "Дневник", value: "journal" },
             { label: "Статистика", value: "stats" },
           ]}
+        />
+        <Button
+          type="text"
+          aria-label="Настройки отображения формулировок"
+          title="Настройки"
+          icon={<SettingOutlined />}
+          onClick={() => setSettingsOpen(true)}
         />
         <Button
           type="text"
@@ -225,6 +234,7 @@ function AppContent() {
         )}
       </Content>
 
+      <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <HelpModal open={helpOpen} onClose={() => setHelpOpen(false)} />
 
       <Modal
