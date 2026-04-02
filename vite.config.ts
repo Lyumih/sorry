@@ -8,6 +8,5 @@ export default defineConfig({
   test: {
     globals: false,
     include: ["src/**/*.test.ts"],
-    passWithNoTests: true,
   },
 });

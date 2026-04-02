@@ -2,6 +2,7 @@ import { Button, Card, Empty, Flex, Popconfirm, Space, Tag, Typography } from "a
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ApologyEntry } from "../types/apologyEntry.ts";
 import { groupEntriesByDay } from "../utils/aggregates.ts";
+import { DEFAULT_SPEAKER_GENDER } from "../types/speakerGender.ts";
 import { buildApologyNarrative } from "../utils/apologyNarrative.ts";
 
 type Props = {
@@ -61,7 +62,7 @@ export function EntryList({
                       </Tag>
                     </Space>
                     <Typography.Paragraph style={{ marginTop: 8, marginBottom: 0 }}>
-                      {buildApologyNarrative(item)}
+                      {buildApologyNarrative(item, DEFAULT_SPEAKER_GENDER)}
                     </Typography.Paragraph>
                   </div>
                   <Space>
