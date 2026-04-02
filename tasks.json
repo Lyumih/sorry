@@ -100,8 +100,8 @@
       "title": "Настройка пола формулировок (извинился/извинилась, плейсхолдеры)",
       "description": "Иконка настроек перед справкой; Modal с выбором мужчина/женщина (по умолчанию мужчина); localStorage + store; форма, buildApologyNarrative, HelpModal; правила для ветки «У меня» по docs/superpowers/specs/2026-04-02-speaker-gender-settings-design.md.",
       "prdRefs": ["9", "5"],
-      "status": "pending",
-      "notes": "Спека согласована 2026-04-02; реализация после writing-plans."
+      "status": "done",
+      "notes": "Ключ localStorage sorry.speakerGender; useSpeakerPrefsStore; SettingsModal; speakerCopy + тесты apologyNarrative; план docs/superpowers/plans/2026-04-02-speaker-gender-settings.md."
     },
     {
       "id": "T11",
