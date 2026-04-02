@@ -87,6 +87,18 @@
   margin-top: 8px;
 }
 
+.journal-data {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.journal-data-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .journal-feed {
   flex-shrink: 0;
 }

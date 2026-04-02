@@ -101,7 +101,7 @@
       "description": "По PRD §9: на «Статистике» только период, сводки, график, список с правками; форма новой записи, экспорт JSON и предупреждение о локальных данных — на «Дневнике».",
       "prdRefs": ["9", "6"],
       "status": "done",
-      "notes": "App.tsx: Card «Данные» (DataWarning + ExportJsonButton) на дневнике; экран статистики — одна колонка: период, StatsPanel, FrequencyChart, EntryList без ApologyForm и экспорта. HelpModal обновлён."
+      "notes": "Дневник: блок journal-data — DataWarning + ExportJsonButton под формой. Статистика: период, StatsPanel, FrequencyChart, EntryList без формы и без экспорта. HelpModal согласован с PRD §9."
     }
   ]
 }

@@ -17,6 +17,7 @@ import { appRuLocale } from "./locale/appRuLocale.ts";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { ApologyForm } from "./components/ApologyForm.tsx";
 import { EntryList } from "./components/EntryList.tsx";
+import { DataWarning } from "./components/DataWarning.tsx";
 import { ExportJsonButton } from "./components/ExportJsonButton.tsx";
 import { HelpModal } from "./components/HelpModal.tsx";
 import { StatsPanel } from "./components/StatsPanel.tsx";
@@ -113,6 +114,12 @@ function AppContent() {
                     }}
                   />
                 </div>
+                <div className="journal-data">
+                  <DataWarning />
+                  <div className="journal-data-actions">
+                    <ExportJsonButton entries={entries} />
+                  </div>
+                </div>
               </div>
             </div>
             <div className="journal-feed">
@@ -180,9 +187,6 @@ function AppContent() {
                                 : "DD.MM.YYYY"
                         }
                       />
-                    </Col>
-                    <Col flex="none">
-                      <ExportJsonButton entries={entries} />
                     </Col>
                   </Row>
                 </Card>
