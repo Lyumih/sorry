@@ -47,7 +47,7 @@ type AppView = "journal" | "stats";
 function AppContent() {
   const { entries, hydrated, hydrate, add, update, remove } = useApologyStore();
   const [view, setView] = useState<AppView>("journal");
-  const [period, setPeriod] = useState<Period>("week");
+  const [period, setPeriod] = useState<Period>("year");
   const [anchor, setAnchor] = useState<Dayjs>(() => dayjs());
   const [editing, setEditing] = useState<ApologyEntry | null>(null);
   const [helpOpen, setHelpOpen] = useState(false);
