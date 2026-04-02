@@ -1,5 +1,7 @@
 import { Modal, Typography } from "antd";
 import { psychologyNote } from "../content/psychologyNote.ts";
+import { useSpeakerPrefsStore } from "../store/useSpeakerPrefsStore.ts";
+import { helpExampleFromMePhrase } from "../utils/speakerCopy.ts";
 
 const { Title, Paragraph } = Typography;
 
@@ -9,6 +11,9 @@ type HelpModalProps = {
 };
 
 export function HelpModal({ open, onClose }: HelpModalProps) {
+  const speakerGender = useSpeakerPrefsStore((s) => s.speakerGender);
+  const exampleFromMe = helpExampleFromMePhrase(speakerGender);
+
   return (
     <Modal
       title="Справка"
@@ -30,9 +35,12 @@ export function HelpModal({ open, onClose }: HelpModalProps) {
 
         <Title level={5}>Как пользоваться</Title>
         <Paragraph>
-          На вкладке <strong>«Дневник»</strong> быстро создаёте запись: в тексте фразы нажмите <strong>«Я»</strong>,
-          чтобы перейти к варианту <strong>«У меня извинился(лась)…»</strong> (когда извинялись вам), или
-          наоборот. Затем заполните поля и сохраните. Ниже можно открыть историю записей, изменить или удалить их.
+          В шапке кнопка <strong>настроек</strong> задаёт, как показывать формулировки о вас (например,{" "}
+          <strong>{exampleFromMe}</strong> вместо варианта для другого пола). В тексте фразы нажмите{" "}
+          <strong>«Я»</strong>, чтобы перейти к варианту <strong>«У меня извинился(лась)…»</strong> (когда
+          извинялись вам): здесь скобки остаются, потому что глагол относится к тому, кто извинялся перед вами, а не к
+          вашему полу в настройках. Или нажмите <strong>«У меня»</strong>, чтобы вернуться к варианту про себя.
+          Затем заполните поля и сохраните. Ниже можно открыть историю записей, изменить или удалить их.
         </Paragraph>
         <Paragraph>
           На вкладке <strong>«Статистика»</strong> — выбор периода, предупреждение о том, что данные только в
