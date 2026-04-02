@@ -31,7 +31,7 @@ type DirectionControlProps = {
   onChange?: (v: ApologyDirection) => void;
 };
 
-/** «Я» в начале фразы «Я извинился перед…» — переключение на «У меня попросили прощения…». */
+/** «Я» в начале фразы «Я извинился(лась) перед…» — переключение на «У меня извинился(лась)…». */
 function NarrativeDirectionFromMe({ onChange }: DirectionControlProps) {
   return (
     <Button
@@ -41,14 +41,14 @@ function NarrativeDirectionFromMe({ onChange }: DirectionControlProps) {
       htmlType="button"
       className="apology-form-direction-inline"
       onClick={() => onChange?.("said_to_me")}
-      aria-label="Сейчас: вы извинились. Нажмите, чтобы отметить, что у вас попросили прощения"
+      aria-label="Сейчас: вы извинились. Нажмите, чтобы отметить, что вам извинялись"
     >
       Я
     </Button>
   );
 }
 
-/** «У меня» в начале фразы «У меня попросили прощения у…» — возврат к «Я извинился…». */
+/** «У меня» в начале фразы «У меня извинился(лась)… за…» — возврат к «Я извинился(лась)…». */
 function NarrativeDirectionToMe({ onChange }: DirectionControlProps) {
   return (
     <Button
@@ -58,7 +58,7 @@ function NarrativeDirectionToMe({ onChange }: DirectionControlProps) {
       htmlType="button"
       className="apology-form-direction-inline"
       onClick={() => onChange?.("i_said")}
-      aria-label="Сейчас: у вас попросили прощения. Нажмите, чтобы вернуть режим «я извинился»"
+      aria-label="Сейчас: вам извинялись. Нажмите, чтобы вернуть режим «я извинился»"
     >
       У меня
     </Button>
@@ -110,7 +110,7 @@ export function ApologyForm({
       form.setFields([
         {
           name: "reason",
-          errors: ["Заполните хотя бы одно поле: перед кем / за что / выводы"],
+          errors: ["Заполните хотя бы одно поле: кто или перед кем / за что / выводы"],
         },
       ]);
       return;
@@ -181,12 +181,12 @@ export function ApologyForm({
                   <Form.Item name="direction" noStyle>
                     <NarrativeDirectionFromMe />
                   </Form.Item>
-                  <span className="apology-form-narrative-text"> извинился перед </span>
+                  <span className="apology-form-narrative-text"> извинился(лась) перед </span>
                   <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--name">
                     <Form.Item name="toWhom" noStyle>
                       <Input
                         {...filledInputProps}
-                        placeholder="Имя"
+                        placeholder="кем (имя)"
                         aria-label="Перед кем вы извинились"
                       />
                     </Form.Item>
@@ -204,7 +204,7 @@ export function ApologyForm({
                   <span className="apology-form-narrative-text">.</span>
                 </div>
                 <div className="apology-form-narrative-line apology-form-narrative-line--reflection apology-form-narrative-one-line">
-                  <span className="apology-form-narrative-text">Мои выводы на будущее</span>
+                  <span className="apology-form-narrative-text">Мои выводы на будущее: </span>
                   <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--reflection">
                     <Form.Item name="reflection" noStyle>
                       <Input
@@ -222,13 +222,13 @@ export function ApologyForm({
                   <Form.Item name="direction" noStyle>
                     <NarrativeDirectionToMe />
                   </Form.Item>
-                  <span className="apology-form-narrative-text"> попросили прощения у </span>
+                  <span className="apology-form-narrative-text"> извинился(лась) </span>
                   <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--name">
                     <Form.Item name="toWhom" noStyle>
                       <Input
                         {...filledInputProps}
-                        placeholder="кто"
-                        aria-label="Кто попросил прощения"
+                        placeholder="кто (имя)"
+                        aria-label="Кто извинялся перед вами"
                       />
                     </Form.Item>
                   </div>
@@ -237,15 +237,15 @@ export function ApologyForm({
                     <Form.Item name="reason" noStyle>
                       <Input
                         {...filledInputProps}
-                        placeholder="за что просили прощения"
-                        aria-label="За что попросили прощения"
+                        placeholder="повод, одной фразой"
+                        aria-label="За что извинялись"
                       />
                     </Form.Item>
                   </div>
                   <span className="apology-form-narrative-text">.</span>
                 </div>
                 <div className="apology-form-narrative-line apology-form-narrative-line--reflection apology-form-narrative-one-line">
-                  <span className="apology-form-narrative-text">Мои выводы на будущее</span>
+                  <span className="apology-form-narrative-text">Мои выводы на будущее: </span>
                   <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--reflection">
                     <Form.Item name="reflection" noStyle>
                       <Input
