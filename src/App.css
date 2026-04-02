@@ -80,7 +80,7 @@
 
 .journal-inner {
   width: 100%;
-  max-width: 440px;
+  max-width: min(36rem, 100%);
 }
 
 .journal-form-wrap {
@@ -211,19 +211,33 @@
   margin-top: 0;
 }
 
-/* Минимальная форма дневника: перенос текста и полей на новую строку при нехватке ширины */
+/* Минимальная форма дневника: поля растут по ширине строки и переносятся, если места мало */
 .apology-form-minimal .apology-form-narrative-line.apology-form-narrative-one-line .apology-form-narrative-text {
   white-space: normal;
 }
 
-.apology-form-minimal .apology-form-narrative-field-wrap--name,
+/* min-width: 0 — иначе flex-элементы с инпутом не сжимаются и не переносятся нормально */
+.apology-form-minimal .apology-form-narrative-field-wrap {
+  min-width: 0;
+}
+
+.apology-form-minimal .apology-form-narrative-field-wrap .ant-form-item-control-input {
+  min-width: 0;
+}
+
+.apology-form-minimal .apology-form-narrative-field-wrap--name {
+  flex: 1 1 8rem;
+  max-width: 100%;
+}
+
 .apology-form-minimal .apology-form-narrative-field-wrap--reason {
-  flex: 1 1 10rem;
-  min-width: min(100%, 7rem);
+  flex: 2 1 12rem;
   max-width: 100%;
 }
 
 .apology-form-minimal .apology-form-narrative-line--reflection .apology-form-narrative-field-wrap--reflection {
+  flex: 1 1 14rem;
+  min-width: min(100%, 10rem);
   max-width: 100%;
 }
 
