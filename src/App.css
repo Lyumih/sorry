@@ -87,14 +87,14 @@
   margin-top: 8px;
 }
 
-.journal-data {
-  margin-top: 20px;
+.stats-data-block {
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.journal-data-actions {
+.stats-data-block-actions {
   display: flex;
   justify-content: flex-start;
 }
@@ -193,10 +193,11 @@
 }
 
 .apology-form-narrative-line.apology-form-narrative-one-line {
+  flex-wrap: wrap;
   column-gap: 0.28em;
-  overflow-x: auto;
+  row-gap: 0.4em;
+  align-items: baseline;
   padding-bottom: 2px;
-  -webkit-overflow-scrolling: touch;
 }
 
 .apology-form-narrative-line--reflection {
@@ -208,6 +209,22 @@
   flex-shrink: 0;
   white-space: nowrap;
   margin-top: 0;
+}
+
+/* Минимальная форма дневника: перенос текста и полей на новую строку при нехватке ширины */
+.apology-form-minimal .apology-form-narrative-line.apology-form-narrative-one-line .apology-form-narrative-text {
+  white-space: normal;
+}
+
+.apology-form-minimal .apology-form-narrative-field-wrap--name,
+.apology-form-minimal .apology-form-narrative-field-wrap--reason {
+  flex: 1 1 10rem;
+  min-width: min(100%, 7rem);
+  max-width: 100%;
+}
+
+.apology-form-minimal .apology-form-narrative-line--reflection .apology-form-narrative-field-wrap--reflection {
+  max-width: 100%;
 }
 
 .apology-form-narrative-field-wrap {

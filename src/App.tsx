@@ -114,12 +114,6 @@ function AppContent() {
                     }}
                   />
                 </div>
-                <div className="journal-data">
-                  <DataWarning />
-                  <div className="journal-data-actions">
-                    <ExportJsonButton entries={entries} />
-                  </div>
-                </div>
               </div>
             </div>
             <div className="journal-feed">
@@ -189,6 +183,12 @@ function AppContent() {
                       />
                     </Col>
                   </Row>
+                  <div className="stats-data-block">
+                    <DataWarning />
+                    <div className="stats-data-block-actions">
+                      <ExportJsonButton entries={entries} />
+                    </div>
+                  </div>
                 </Card>
 
                 <div style={{ marginTop: 16 }}>

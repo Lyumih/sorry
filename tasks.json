@@ -101,7 +101,7 @@
       "description": "По PRD §9: на «Статистике» только период, сводки, график, список с правками; форма новой записи, экспорт JSON и предупреждение о локальных данных — на «Дневнике».",
       "prdRefs": ["9", "6"],
       "status": "done",
-      "notes": "Дневник: блок journal-data — DataWarning + ExportJsonButton под формой. Статистика: период, StatsPanel, FrequencyChart, EntryList без формы и без экспорта. HelpModal согласован с PRD §9."
+      "notes": "PRD v1.6: дневник без экспорта/предупреждения; статистика — карточка «Период» с DataWarning + ExportJsonButton (stats-data-block). HelpModal и правила проекта согласованы."
     }
   ]
 }
