@@ -95,6 +95,15 @@
       "notes": "Исторически: двухколоночный stats с формой и экспортом; см. T11 — разделение по PRD v1.5."
     },
     {
+      "id": "T12",
+      "order": 12,
+      "title": "Настройка пола формулировок (извинился/извинилась, плейсхолдеры)",
+      "description": "Иконка настроек перед справкой; Modal с выбором мужчина/женщина (по умолчанию мужчина); localStorage + store; форма, buildApologyNarrative, HelpModal; правила для ветки «У меня» по docs/superpowers/specs/2026-04-02-speaker-gender-settings-design.md.",
+      "prdRefs": ["9", "5"],
+      "status": "pending",
+      "notes": "Спека согласована 2026-04-02; реализация после writing-plans."
+    },
+    {
       "id": "T11",
       "order": 11,
       "title": "Статистика без формы ввода и экспорта",
