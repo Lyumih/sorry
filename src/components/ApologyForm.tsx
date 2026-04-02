@@ -26,27 +26,37 @@ function valuesToNewEntry(values: FormValues): NewApologyEntry {
   };
 }
 
-type DirectionToggleProps = {
+type DirectionControlProps = {
   value?: ApologyDirection;
   onChange?: (v: ApologyDirection) => void;
 };
 
-/** Одна кнопка: по нажатию переключает «Я» ↔ «Мне». */
-function DirectionToggleButton({ value = "i_said", onChange }: DirectionToggleProps) {
-  const next: ApologyDirection = value === "i_said" ? "said_to_me" : "i_said";
+/** «Я» в начале фразы «Я извинился перед…» — переключение на «У меня попросили прощения…». */
+function NarrativeDirectionFromMe({ onChange }: DirectionControlProps) {
   return (
     <Button
       type="text"
       htmlType="button"
-      onClick={() => onChange?.(next)}
-      aria-pressed={value === "said_to_me"}
-      aria-label={
-        value === "i_said"
-          ? "Сейчас: я извинился. Нажмите, чтобы отметить, что вам сказали извинение"
-          : "Сейчас: мне сказали. Нажмите, чтобы отметить, что вы извинились"
-      }
+      className="apology-form-direction-inline"
+      onClick={() => onChange?.("said_to_me")}
+      aria-label="Сейчас: вы извинились. Нажмите, чтобы отметить, что у вас попросили прощения"
     >
-      {value === "i_said" ? "Я" : "Мне"}
+      Я
+    </Button>
+  );
+}
+
+/** «У меня» в начале фразы «У меня попросили прощения у…» — возврат к «Я извинился…». */
+function NarrativeDirectionToMe({ onChange }: DirectionControlProps) {
+  return (
+    <Button
+      type="text"
+      htmlType="button"
+      className="apology-form-direction-inline"
+      onClick={() => onChange?.("i_said")}
+      aria-label="Сейчас: у вас попросили прощения. Нажмите, чтобы вернуть режим «я извинился»"
+    >
+      У меня
     </Button>
   );
 }
@@ -160,20 +170,14 @@ export function ApologyForm({
         className="apology-form-narrative-block"
       >
         <div className="apology-form-narrative-flow">
-          <div className="apology-form-narrative-direction">
-            <Typography.Text type="secondary" className="apology-form-narrative-direction-label">
-              Кто извинялся:
-            </Typography.Text>
-            <Form.Item name="direction" noStyle>
-              <DirectionToggleButton />
-            </Form.Item>
-          </div>
-
           <div className="apology-form-narrative-body apology-form-narrative-stack">
             {direction === "i_said" ? (
               <>
                 <div className="apology-form-narrative-line apology-form-narrative-one-line">
-                  <span className="apology-form-narrative-text">Я извинился перед </span>
+                  <Form.Item name="direction" noStyle>
+                    <NarrativeDirectionFromMe />
+                  </Form.Item>
+                  <span className="apology-form-narrative-text"> извинился перед </span>
                   <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--name">
                     <Form.Item name="toWhom" noStyle>
                       <Input
@@ -211,7 +215,10 @@ export function ApologyForm({
             ) : (
               <>
                 <div className="apology-form-narrative-line apology-form-narrative-one-line">
-                  <span className="apology-form-narrative-text">У меня попросили прощения у </span>
+                  <Form.Item name="direction" noStyle>
+                    <NarrativeDirectionToMe />
+                  </Form.Item>
+                  <span className="apology-form-narrative-text"> попросили прощения у </span>
                   <div className="apology-form-narrative-field-wrap apology-form-narrative-field-wrap--name">
                     <Form.Item name="toWhom" noStyle>
                       <Input
